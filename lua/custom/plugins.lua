@@ -15,6 +15,7 @@ local plugins = {
           require "custom.configs.null-ls"
         end,
       },
+      {"MunifTanjim/prettier.nvim", lazy = false},
     },
     config = function()
       require "plugins.configs.lspconfig"
@@ -31,8 +32,15 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,
+    dependencies = {
+      {
+        "windwp/nvim-ts-autotag",
+         config = function()
+          require("nvim-ts-autotag").setup()
+        end,
+      },
+    },
   },
-
   {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
@@ -45,8 +53,25 @@ local plugins = {
     config = function()
       require("better_escape").setup()
     end,
+  }, 
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
-  {"MunifTanjim/prettier.nvim", lazy = false}
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = function()
+      local conf = require "plugins.configs.telescope"
+      table.insert(conf.extensions_list, "file_browser")
+      conf.extensions.file_browser = {
+        hijack_netrw = true,
+        mappings = {},
+      }
+      return conf
+    end,
+
+  }
+
 
   -- To make a plugin not be loaded
   -- {
