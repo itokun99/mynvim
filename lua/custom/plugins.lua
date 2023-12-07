@@ -1,4 +1,4 @@
-local overrides = require("custom.configs.overrides")
+local overrides = require "custom.configs.overrides"
 
 ---@type NvPluginSpec[]
 local plugins = {
@@ -15,7 +15,17 @@ local plugins = {
           require "custom.configs.null-ls"
         end,
       },
-      {"MunifTanjim/prettier.nvim", lazy = false},
+      { "MunifTanjim/prettier.nvim", lazy = false },
+      {
+        "nvimdev/lspsaga.nvim",
+        config = function()
+          require("lspsaga").setup {}
+        end,
+        dependencies = {
+          "nvim-treesitter/nvim-treesitter",
+          "nvim-tree/nvim-web-devicons",
+        },
+      },
     },
     config = function()
       require "plugins.configs.lspconfig"
@@ -26,7 +36,7 @@ local plugins = {
   -- override plugin configs
   {
     "williamboman/mason.nvim",
-    opts = overrides.mason
+    opts = overrides.mason,
   },
 
   {
@@ -35,7 +45,7 @@ local plugins = {
     dependencies = {
       {
         "windwp/nvim-ts-autotag",
-         config = function()
+        config = function()
           require("nvim-ts-autotag").setup()
         end,
       },
@@ -53,10 +63,10 @@ local plugins = {
     config = function()
       require("better_escape").setup()
     end,
-  }, 
+  },
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -69,10 +79,7 @@ local plugins = {
       }
       return conf
     end,
-
-  }
-
-
+  },
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
