@@ -39,8 +39,8 @@ local sources = {
   -- b.formatting.eslint,
   -- b.diagnostics.eslint,
   -- b.code_actions.eslint_d,
-  b.formatting.stylelint,
-  b.diagnostics.stylelint,
+  -- b.formatting.stylelint,
+  -- b.diagnostics.stylelint,
 
   b.formatting.gofumpt,
   b.formatting.goimports,
@@ -50,22 +50,22 @@ local sources = {
   -- b.formatting.clang_format,
 }
 
-null_ls.setup({
+null_ls.setup {
   debug = true,
   sources = sources,
   on_attach = function(client, bufnr)
     if client.supports_method "textDocument/formatting" then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
       vim.api.nvim_create_autocmd(event, {
         group = augroup,
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format({ bufnr = bufnr, async = async })
+          vim.lsp.buf.format { bufnr = bufnr, async = async }
         end,
       })
     end
   end,
-})
+}
 
 prettier.setup {
   bin = "prettierd",
