@@ -104,6 +104,16 @@ local plugins = {
       -- refer to the configuration section below
     },
   },
+
+  {
+    "ray-x/forgit.nvim",
+    lazy = true,
+    event = "VeryLazy",
+    config = function()
+      require "custom.configs.forgit"
+    end,
+    dependencies = { "ray-x/guihua.lua" },
+  },
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
