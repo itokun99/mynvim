@@ -22,7 +22,7 @@ M.treesitter = {
   autotag = {
     enable = true,
     enable_close_on_slash = false,
-  }
+  },
 }
 
 M.mason = {
@@ -47,6 +47,24 @@ M.mason = {
 -- git support in nvimtree
 M.nvimtree = {
   git = {
+    enable = true,
+  },
+
+  filters = {
+    git_ignored = true,
+    dotfiles = false,
+    exclude = {
+      "dist",
+      "build",
+      ".env",
+      ".env.prod",
+      ".env.production",
+      ".env.staging",
+      ".env.development",
+      ".env.dev",
+    },
+  },
+  update_focused_file = {
     enable = true,
   },
 
